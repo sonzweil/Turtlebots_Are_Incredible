@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# Copyright 2019 OROCA
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +13,22 @@
 # limitations under the License.
 
 import os
+import rclpy
+import time
 
-from ament_index_python.resources import get_resource
-from geometry_msgs.msg import Twist
 from python_qt_binding import loadUi
 from python_qt_binding.QtCore import Qt
 from python_qt_binding.QtCore import QTimer
 from python_qt_binding.QtGui import QKeySequence
 from python_qt_binding.QtWidgets import QShortcut
 from python_qt_binding.QtWidgets import QWidget
-import rclpy
+
+from ament_index_python.resources import get_resource
 from rclpy.qos import QoSProfile
+from rclpy.action import GoalResponse, CancelResponse
+
+from geometry_msgs.msg import Twist
 from sensor_msgs.msg import BatteryState
-from incredible_interface.action import MoveXWithTime
 from turtlebot3_msgs.srv import Sound
 
 class IncredibleWidget(QWidget):
@@ -50,6 +52,8 @@ class IncredibleWidget(QWidget):
         waffle_cmd_topic = 'waffle_pi/cmd_vel'
         burger_battery_topic = 'burger/battery_state'
         waffle_battery_topic = 'waffle_pi/battery_state'
+        # self.action_name = 'move_x_with_time'
+
 
         _, package_path = get_resource('packages', pkg_name)
         ui_file = os.path.join(package_path, 'share', pkg_name, 'resource', ui_filename)
@@ -81,6 +85,15 @@ class IncredibleWidget(QWidget):
         self.waffle_cmd_subscriber = self.node.create_subscription(Twist, waffle_cmd_topic, self.get_waffle_velocity, qos)
         self.burger_battery_subscriber = self.node.create_subscription(BatteryState, waffle_battery_topic, self.get_burger_battery, qos)
         self.waffle_battery_subscriber = self.node.create_subscription(BatteryState, burger_battery_topic, self.get_waffle_battery, qos)
+        self.burger_alarm_client = self.node.create_client(Sound, 'burger/sound')
+        self.waffle_alarm_client = self.node.create_client(Sound, 'waffle_pi/sound')
+
+        # self.move_with_time_action_server = rclpy.action.ActionServer(
+        #     self, MoveXWithTime, self.action_name,
+        #     # callback_group=self.callback_group,
+        #     goal_callback=self.goal_callback,
+        #     cancel_callback=self.cancel_callback,
+        #     execute_callback=self.execute_callback)
 
         self.publish_timer = QTimer(self)
         self.publish_timer.timeout.connect(self.send_velocity)
@@ -96,6 +109,8 @@ class IncredibleWidget(QWidget):
         self.push_button_d.pressed.connect(self.decrease_angular_z)
         self.push_button_s.pressed.connect(self.set_stop)
 
+        self.push_button_alarm.clicked.connect(self.make_alarm)
+
         self.push_button_w.setShortcut('w')
         self.push_button_x.setShortcut('x')
         self.push_button_a.setShortcut('a')
@@ -108,19 +123,19 @@ class IncredibleWidget(QWidget):
 
         self.check_box_burger.stateChanged.connect(self.burger_choose)
         self.check_box_waffle.stateChanged.connect(self.waffle_choose)
+
+    """
+        checkbox callback
+    """
     def burger_choose(self, state):
         self.burger_selected = not self.burger_selected
     def waffle_choose(self, state):
         self.waffle_selected = not self.waffle_selected
-    def get_burger_velocity(self, msg):
-        self.sub_burger_velocity = msg
-    def get_waffle_velocity(self, msg):
-        self.sub_waffle_velocity = msg
-    def get_burger_battery(self, msg):
-        self.sub_burger_battery = msg
-    def get_waffle_battery(self, msg):
-        self.sub_waffle_battery = msg
 
+
+    """
+        pushbutton callback
+    """
     def increase_linear_x(self):
         self.pub_velocity.linear.x += 0.05
     def decrease_linear_x(self):
@@ -133,6 +148,91 @@ class IncredibleWidget(QWidget):
         self.pub_velocity.linear.x = 0.0
         self.pub_velocity.angular.z = 0.0
 
+    """
+        cmd subscriber callback
+    """
+    def get_burger_velocity(self, msg):
+        self.sub_burger_velocity = msg
+    def get_waffle_velocity(self, msg):
+        self.sub_waffle_velocity = msg
+    def get_burger_battery(self, msg):
+        self.sub_burger_battery = msg
+    def get_waffle_battery(self, msg):
+        self.sub_waffle_battery = msg
+
+
+    """
+        service client call
+    """
+    def make_alarm(self):
+        request_burger = Sound.Request()
+        request_waffle = Sound.Request()
+
+        if self.burger_selected == True:
+            while not self.burger_alarm_client.wait_for_service(timeout_sec=1.0):
+                if not rclpy.ok():
+                    self.get_logger().error('interruped while waiting for the server.')
+                    return
+                else:
+                    self.get_logger().info('server not available, waiting again...')
+            request_burger.value = 0
+            future_burger = self.burger_alarm_client.call_async(request_burger)
+            if future_burger.done():
+                try:
+                    response = future_burger.result()
+                except Exception as e:
+                    raise RuntimeError("exception while calling service: %r" % future_burger.exception())
+                else:
+                    self.node.get_logger().info('Result success:{} message:{}.'.format(response.success, response.message))
+                    self.node.get_logger().info('==== burger Call Done ====')
+
+        if self.waffle_selected == True:
+            while not self.waffle_alarm_client.wait_for_service(timeout_sec=1.0):
+                if not rclpy.ok():
+                    self.get_logger().error('interruped while waiting for the server.')
+                    return
+                else:
+                    self.get_logger().info('server not available, waiting again...')
+            request_waffle.value = 1
+            future_waffle = self.waffle_alarm_client.call_async(request_waffle)
+            if future_waffle.done():
+                try:
+                    response = future_waffle.result()
+                except Exception as e:
+                    raise RuntimeError("exception while calling service: %r" % future_waffle.exception())
+                else:
+                    self.node.get_logger().info('Result success:{} message:{}.'.format(response.success, response.message))
+                    self.node.get_logger().info('==== waffle Call Done ====')
+
+    """
+        action server callback
+    """
+    # def goal_callback(self, goal_request):
+    #     self.get_logger().info('Received goal request')
+    #     return GoalResponse.ACCEPT
+    # def cancel_callback(self, goal_handle):
+    #     self.get_logger().info('Received cancel request')
+    #     return CancelResponse.ACCEPT
+    # def execute_callback(self, goal_handle):
+    #     self.get_logger().info('Executing goal')
+    #     goal = goal_handle.request
+    #     feedback = self.action_name.Feedback()
+    #     result = self.action_name.Result()
+    #     for i in range(0, 10):
+    #         if goal_handle.is_cancel_requested:
+    #             # goal_handle.canceled()
+    #             self.get_logger().error('Goal Canceled')
+    #             return
+    #         goal_handle.publish_feedback(feedback)
+    #         self.get_logger().info('Sent feedback')
+    #         time.sleep(1)
+    #     goal_handle.succeed()
+    #     self.get_logger().info('Successfully executed goal')
+    #     return result
+
+    """
+        timer callback
+    """
     def send_velocity(self):
         twist = Twist()
         twist.linear.x = self.pub_velocity.linear.x
@@ -159,6 +259,9 @@ class IncredibleWidget(QWidget):
         self.waffle_lcd_number_x.display(self.sub_waffle_velocity.linear.x)
         self.waffle_lcd_number_yaw.display(self.sub_waffle_velocity.angular.z)
 
+    """
+        calls when closing program
+    """
     def shutdown_widget(self):
         self.update_timer.stop()
         self.publish_timer.stop()
@@ -168,3 +271,5 @@ class IncredibleWidget(QWidget):
         self.node.destroy_subscription(self.waffle_battery_subscriber)
         self.node.destroy_publisher(self.burger_cmd_publisher)
         self.node.destroy_publisher(self.waffle_cmd_publisher)
+        self.node.destroy_client(self.burger_alarm_client)
+        self.node.destroy_client(self.waffle_alarm_client)
