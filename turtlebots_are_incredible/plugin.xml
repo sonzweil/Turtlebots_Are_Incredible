@@ -1,0 +1,17 @@
+<library path="src">
+  <class name="Incredible" type="turtlebots_are_incredible.incredible.Incredible" base_class_type="rqt_gui_py::Plugin">
+    <description>
+      rqt Plugin for controlling multiple turtlebots
+    </description>
+    <qtgui>
+      <group>
+        <label>Turtlebot3</label>
+        <icon type="theme">folder</icon>
+        <statustip>Plugins related to Turtlebot3</statustip>
+      </group>
+      <label>Turtlebots Are Incredible</label>
+      <icon type="theme">utilities-system-monitor</icon>
+      <statustip>rqt Plugin for controlling multiple turtlebots</statustip>
+    </qtgui>
+  </class>
+</library>

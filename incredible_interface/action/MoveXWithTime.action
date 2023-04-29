@@ -1,0 +1,9 @@
+# Goal
+float32 vel_x
+float32 time
+---
+# Result
+float32 total_movement
+---
+# Feedback
+float32 distance_remain
