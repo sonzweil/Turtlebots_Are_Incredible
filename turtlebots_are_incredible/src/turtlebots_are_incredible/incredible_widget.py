@@ -25,11 +25,16 @@ from python_qt_binding.QtWidgets import QWidget
 
 from ament_index_python.resources import get_resource
 from rclpy.qos import QoSProfile
-from rclpy.action import GoalResponse, CancelResponse
+from rclpy.action import ActionServer, ActionClient, GoalResponse, CancelResponse
 
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import BatteryState
 from turtlebot3_msgs.srv import Sound
+from incredible_interface.action import MoveXWithTime
+from rclpy.duration import Duration
+from std_msgs.msg import Header
+
+
 
 class IncredibleWidget(QWidget):
     def __init__(self, node):
@@ -52,7 +57,7 @@ class IncredibleWidget(QWidget):
         waffle_cmd_topic = 'waffle_pi/cmd_vel'
         burger_battery_topic = 'burger/battery_state'
         waffle_battery_topic = 'waffle_pi/battery_state'
-        # self.action_name = 'move_x_with_time'
+        self.action_name = 'move_x_with_time'
 
 
         _, package_path = get_resource('packages', pkg_name)
@@ -77,6 +82,8 @@ class IncredibleWidget(QWidget):
         self.waffle_slider_x.setValue(0)
         self.waffle_lcd_number_x.display(0.0)
         self.waffle_lcd_number_yaw.display(0.0)
+        self.remain_lcd_number.display(0)
+        self.movement_lcd_number.display(0)
 
         qos = QoSProfile(depth=10)
         self.burger_cmd_publisher = self.node.create_publisher(Twist, waffle_cmd_topic, qos)
@@ -87,13 +94,14 @@ class IncredibleWidget(QWidget):
         self.waffle_battery_subscriber = self.node.create_subscription(BatteryState, burger_battery_topic, self.get_waffle_battery, qos)
         self.burger_alarm_client = self.node.create_client(Sound, 'burger/sound')
         self.waffle_alarm_client = self.node.create_client(Sound, 'waffle_pi/sound')
-
-        # self.move_with_time_action_server = rclpy.action.ActionServer(
-        #     self, MoveXWithTime, self.action_name,
-        #     # callback_group=self.callback_group,
-        #     goal_callback=self.goal_callback,
-        #     cancel_callback=self.cancel_callback,
-        #     execute_callback=self.execute_callback)
+        self.burger_action_client = rclpy.action.ActionClient(self.node, MoveXWithTime, self.action_name)
+        self.move_with_time_action_server = rclpy.action.ActionServer(
+            node=self.node,
+            action_type=MoveXWithTime,
+            action_name=self.action_name,
+            goal_callback=self.goal_callback,
+            cancel_callback=self.cancel_callback,
+            execute_callback=self.execute_callback)
 
         self.publish_timer = QTimer(self)
         self.publish_timer.timeout.connect(self.send_velocity)
@@ -110,6 +118,8 @@ class IncredibleWidget(QWidget):
         self.push_button_s.pressed.connect(self.set_stop)
 
         self.push_button_alarm.clicked.connect(self.make_alarm)
+        self.push_button_action_start.clicked.connect(self.make_action)
+        self.push_button_action_cancel.clicked.connect(self.cancel_action)
 
         self.push_button_w.setShortcut('w')
         self.push_button_x.setShortcut('x')
@@ -171,64 +181,123 @@ class IncredibleWidget(QWidget):
         if self.burger_selected == True:
             while not self.burger_alarm_client.wait_for_service(timeout_sec=1.0):
                 if not rclpy.ok():
-                    self.get_logger().error('interruped while waiting for the server.')
+                    self.node.get_logger().error('interruped while waiting for the server.')
                     return
                 else:
-                    self.get_logger().info('server not available, waiting again...')
+                    self.node.get_logger().info('server not available, waiting again...')
             request_burger.value = 0
             future_burger = self.burger_alarm_client.call_async(request_burger)
             if future_burger.done():
                 try:
                     response = future_burger.result()
                 except Exception as e:
-                    raise RuntimeError("exception while calling service: %r" % future_burger.exception())
+                    raise RuntimeError(f'exception while calling service: {future_burger.exception()}')
                 else:
-                    self.node.get_logger().info('Result success:{} message:{}.'.format(response.success, response.message))
+                    self.node.get_logger().info(f'Result success:{response.success} message:{response.message}')
                     self.node.get_logger().info('==== burger Call Done ====')
 
         if self.waffle_selected == True:
             while not self.waffle_alarm_client.wait_for_service(timeout_sec=1.0):
                 if not rclpy.ok():
-                    self.get_logger().error('interruped while waiting for the server.')
+                    self.node.get_logger().error('interruped while waiting for the server.')
                     return
                 else:
-                    self.get_logger().info('server not available, waiting again...')
+                    self.node.get_logger().info('server not available, waiting again...')
             request_waffle.value = 1
             future_waffle = self.waffle_alarm_client.call_async(request_waffle)
             if future_waffle.done():
                 try:
                     response = future_waffle.result()
                 except Exception as e:
-                    raise RuntimeError("exception while calling service: %r" % future_waffle.exception())
+                    raise RuntimeError(f'exception while calling service: {future_waffle.exception()}')
                 else:
-                    self.node.get_logger().info('Result success:{} message:{}.'.format(response.success, response.message))
+                    self.node.get_logger().info(f'Result success:{response.success} message:{response.message}')
                     self.node.get_logger().info('==== waffle Call Done ====')
 
     """
+        action client calls
+    """
+    def make_action(self):
+        if self.burger_action_client.wait_for_server(1.0) is False:
+            self.node.get_logger().error('Server not available')
+
+        goal = MoveXWithTime.Goal()
+        goal.vel_x = float(self.line_edit_vel_x.text())
+        goal.time = float(self.line_edit_time.text())
+        self.remain_lcd_number.display(goal.vel_x * goal.time)
+        self.send_goal_future = self.burger_action_client.send_goal_async(goal, feedback_callback=self.feedback_callback)
+        self.send_goal_future.add_done_callback(self.goal_response_callback)
+
+    # for execute
+    def goal_response_callback(self, future):
+        self.goal_handle = future.result()
+        if not self.goal_handle.accepted:
+            self.node.get_logger().info('Goal rejected by server')
+            return
+        else:
+            self.node.get_logger().info('Goal accepted by server, waiting for result')
+        self._get_result_future = self.goal_handle.get_result_async()
+        self._get_result_future.add_done_callback(self.result_callback)
+    def feedback_callback(self, feedback_msg):
+        feedback = feedback_msg.feedback
+        distance_remain = feedback.distance_remain
+        self.remain_lcd_number.display(distance_remain)
+    def result_callback(self, future):
+        result = future.result().result
+        self.movement_lcd_number.display(result.total_movement)
+        self.node.get_logger().info(f'Server successfully executed goal. total movement is : {result.total_movement}')
+
+    # for cancel
+    def cancel_action(self):
+        self.node.get_logger().info('Canceling goal')
+        future = self.goal_handle.cancel_goal_async()
+        future.add_done_callback(self.client_cancel_callback)
+    def client_cancel_callback(self, future):
+        stop_response = future.result()
+        self.movement_lcd_number.display(stop_response.total_movement)
+        if len(stop_response.goals.canceling) > 0:
+            self.node.get_logger().info("Goal successfully canceled")
+        else:
+            self.node.get_logger().info("Goal failed to cancel")
+    """
         action server callback
     """
-    # def goal_callback(self, goal_request):
-    #     self.get_logger().info('Received goal request')
-    #     return GoalResponse.ACCEPT
-    # def cancel_callback(self, goal_handle):
-    #     self.get_logger().info('Received cancel request')
-    #     return CancelResponse.ACCEPT
-    # def execute_callback(self, goal_handle):
-    #     self.get_logger().info('Executing goal')
-    #     goal = goal_handle.request
-    #     feedback = self.action_name.Feedback()
-    #     result = self.action_name.Result()
-    #     for i in range(0, 10):
-    #         if goal_handle.is_cancel_requested:
-    #             # goal_handle.canceled()
-    #             self.get_logger().error('Goal Canceled')
-    #             return
-    #         goal_handle.publish_feedback(feedback)
-    #         self.get_logger().info('Sent feedback')
-    #         time.sleep(1)
-    #     goal_handle.succeed()
-    #     self.get_logger().info('Successfully executed goal')
-    #     return result
+    def goal_callback(self, goal_request):
+        self.node.get_logger().info('Received goal request')
+        return GoalResponse.ACCEPT
+    def cancel_callback(self, goal_handle):
+        self.node.get_logger().info('Received cancel request')
+        return CancelResponse.ACCEPT
+    def execute_callback(self, goal_handle):
+        self.node.get_logger().info('Executing goal')
+        goal = goal_handle.request
+        feedback = MoveXWithTime.Feedback()
+        result = MoveXWithTime.Result()
+
+        past = self.node.get_clock().now()
+        now = self.node.get_clock().now()
+        total_distance = goal.vel_x * goal.time
+        self.pub_velocity.linear.x = goal.vel_x
+        self.pub_velocity.angular.z = 0.0
+
+        while ((now - past).nanoseconds * 1e-9 <= goal.time):
+            if goal_handle.is_cancel_requested:
+                goal_handle.canceled()
+                self.pub_velocity.linear.x = 0.0
+                self.node.get_logger().error('Goal Canceled')
+                return result
+            total_movement = goal.vel_x * ((now - past).nanoseconds * 1e-9)
+            feedback.distance_remain = total_distance - total_movement
+            goal_handle.publish_feedback(feedback)
+            result.total_movement = total_movement
+            now = self.node.get_clock().now()
+            time.sleep(0.01)
+
+        self.pub_velocity.linear.x = 0.0
+
+        goal_handle.succeed()
+        self.node.get_logger().info('Successfully executed goal')
+        return result
 
     """
         timer callback
