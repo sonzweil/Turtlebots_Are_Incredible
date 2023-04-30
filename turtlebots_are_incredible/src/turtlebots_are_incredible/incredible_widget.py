@@ -86,15 +86,16 @@ class IncredibleWidget(QWidget):
         self.movement_lcd_number.display(0)
 
         qos = QoSProfile(depth=10)
-        self.burger_cmd_publisher = self.node.create_publisher(Twist, waffle_cmd_topic, qos)
-        self.waffle_cmd_publisher = self.node.create_publisher(Twist, burger_cmd_topic, qos)
+        self.burger_cmd_publisher = self.node.create_publisher(Twist, burger_cmd_topic, qos)
+        self.waffle_cmd_publisher = self.node.create_publisher(Twist, waffle_cmd_topic, qos)
         self.burger_cmd_subscriber = self.node.create_subscription(Twist, burger_cmd_topic, self.get_burger_velocity, qos)
         self.waffle_cmd_subscriber = self.node.create_subscription(Twist, waffle_cmd_topic, self.get_waffle_velocity, qos)
-        self.burger_battery_subscriber = self.node.create_subscription(BatteryState, waffle_battery_topic, self.get_burger_battery, qos)
-        self.waffle_battery_subscriber = self.node.create_subscription(BatteryState, burger_battery_topic, self.get_waffle_battery, qos)
+        self.burger_battery_subscriber = self.node.create_subscription(BatteryState, burger_battery_topic, self.get_burger_battery, qos)
+        self.waffle_battery_subscriber = self.node.create_subscription(BatteryState, waffle_battery_topic, self.get_waffle_battery, qos)
         self.burger_alarm_client = self.node.create_client(Sound, 'burger/sound')
         self.waffle_alarm_client = self.node.create_client(Sound, 'waffle_pi/sound')
         self.burger_action_client = rclpy.action.ActionClient(self.node, MoveXWithTime, self.action_name)
+        self.waffle_action_client = rclpy.action.ActionClient(self.node, MoveXWithTime, self.action_name)
         self.move_with_time_action_server = rclpy.action.ActionServer(
             node=self.node,
             action_type=MoveXWithTime,
@@ -225,7 +226,10 @@ class IncredibleWidget(QWidget):
         goal.vel_x = float(self.line_edit_vel_x.text())
         goal.time = float(self.line_edit_time.text())
         self.remain_lcd_number.display(goal.vel_x * goal.time)
-        self.send_goal_future = self.burger_action_client.send_goal_async(goal, feedback_callback=self.feedback_callback)
+        if self.burger_selected == True:
+            self.send_goal_future = self.burger_action_client.send_goal_async(goal, feedback_callback=self.feedback_callback)
+        if self.waffle_selected == True:
+            self.send_goal_future = self.waffle_action_client.send_goal_async(goal, feedback_callback=self.feedback_callback)
         self.send_goal_future.add_done_callback(self.goal_response_callback)
 
     # for execute
