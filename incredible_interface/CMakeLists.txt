@@ -16,7 +16,7 @@ find_package(builtin_interfaces REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 set(msg_files
-  "msg/FingerNumber.msg"
+  "msg/HandControl.msg"
 )
 
 set(action_files

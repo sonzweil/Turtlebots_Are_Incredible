@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1280</width>
+    <width>1080</width>
     <height>720</height>
    </rect>
   </property>
@@ -16,10 +16,10 @@
   <widget class="QGroupBox" name="group_box_meters">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>290</y>
-     <width>821</width>
-     <height>401</height>
+     <x>420</x>
+     <y>10</y>
+     <width>631</width>
+     <height>371</height>
     </rect>
    </property>
    <property name="font">
@@ -36,10 +36,10 @@
    <widget class="QSlider" name="burger_slider_x">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>90</y>
+      <x>45</x>
+      <y>83</y>
       <width>31</width>
-      <height>211</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="minimum">
@@ -58,10 +58,10 @@
    <widget class="QDial" name="burger_dial_yaw">
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>100</y>
+      <x>125</x>
+      <y>93</y>
       <width>151</width>
-      <height>181</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="tabletTracking">
@@ -95,18 +95,18 @@
    <widget class="QLCDNumber" name="burger_lcd_number_x">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>310</y>
+      <x>10</x>
+      <y>270</y>
       <width>101</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="burger_label_x">
     <property name="geometry">
      <rect>
-      <x>155</x>
-      <y>333</y>
+      <x>115</x>
+      <y>283</y>
       <width>30</width>
       <height>17</height>
      </rect>
@@ -127,18 +127,18 @@
    <widget class="QLCDNumber" name="burger_lcd_number_yaw">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>310</y>
+      <x>150</x>
+      <y>270</y>
       <width>101</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="burger_label_yaw">
     <property name="geometry">
      <rect>
-      <x>295</x>
-      <y>333</y>
+      <x>255</x>
+      <y>283</y>
       <width>50</width>
       <height>17</height>
      </rect>
@@ -159,8 +159,8 @@
    <widget class="QLabel" name="waffle_label_yaw">
     <property name="geometry">
      <rect>
-      <x>705</x>
-      <y>333</y>
+      <x>575</x>
+      <y>283</y>
       <width>50</width>
       <height>17</height>
      </rect>
@@ -181,10 +181,10 @@
    <widget class="QDial" name="waffle_dial_yaw">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>100</y>
+      <x>445</x>
+      <y>93</y>
       <width>151</width>
-      <height>181</height>
+      <height>151</height>
      </rect>
     </property>
     <property name="tabletTracking">
@@ -218,30 +218,30 @@
    <widget class="QLCDNumber" name="waffle_lcd_number_yaw">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>310</y>
+      <x>470</x>
+      <y>270</y>
       <width>101</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QLCDNumber" name="waffle_lcd_number_x">
     <property name="geometry">
      <rect>
-      <x>460</x>
-      <y>310</y>
+      <x>330</x>
+      <y>270</y>
       <width>101</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QSlider" name="waffle_slider_x">
     <property name="geometry">
      <rect>
-      <x>500</x>
-      <y>90</y>
+      <x>365</x>
+      <y>83</y>
       <width>31</width>
-      <height>211</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="minimum">
@@ -260,8 +260,8 @@
    <widget class="QLabel" name="waffle_label_x">
     <property name="geometry">
      <rect>
-      <x>565</x>
-      <y>333</y>
+      <x>435</x>
+      <y>283</y>
       <width>30</width>
       <height>17</height>
      </rect>
@@ -282,8 +282,8 @@
    <widget class="QProgressBar" name="burger_battery">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>360</y>
+      <x>150</x>
+      <y>310</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -295,8 +295,8 @@
    <widget class="QProgressBar" name="waffle_battery">
     <property name="geometry">
      <rect>
-      <x>600</x>
-      <y>360</y>
+      <x>470</x>
+      <y>310</y>
       <width>101</width>
       <height>23</height>
      </rect>
@@ -308,7 +308,7 @@
    <widget class="QLabel" name="burger_label">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>10</x>
       <y>50</y>
       <width>67</width>
       <height>21</height>
@@ -324,7 +324,7 @@
    <widget class="QLabel" name="waffle_label">
     <property name="geometry">
      <rect>
-      <x>460</x>
+      <x>330</x>
       <y>50</y>
       <width>67</width>
       <height>21</height>
@@ -340,8 +340,8 @@
    <widget class="QLabel" name="burger_label_battery">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>360</y>
+      <x>40</x>
+      <y>310</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -356,8 +356,8 @@
    <widget class="QLabel" name="waffle_label_battery">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>360</y>
+      <x>360</x>
+      <y>310</y>
       <width>71</width>
       <height>21</height>
      </rect>
@@ -372,10 +372,10 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>400</x>
+      <x>310</x>
       <y>50</y>
       <width>20</width>
-      <height>321</height>
+      <height>301</height>
      </rect>
     </property>
     <property name="orientation">
@@ -386,10 +386,10 @@
   <widget class="QGroupBox" name="group_box_keyboard_teleop">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>290</y>
-     <width>321</width>
-     <height>311</height>
+     <x>30</x>
+     <y>410</y>
+     <width>361</width>
+     <height>281</height>
     </rect>
    </property>
    <property name="font">
@@ -401,14 +401,14 @@
     </font>
    </property>
    <property name="title">
-    <string>UI Operation</string>
+    <string>UI/Keyboard Operation</string>
    </property>
    <widget class="QWidget" name="grid_layout_widget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>40</y>
-      <width>321</width>
+      <x>20</x>
+      <y>60</y>
+      <width>291</width>
       <height>203</height>
      </rect>
     </property>
@@ -498,36 +498,13 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_shortcut_key_1">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>250</y>
-      <width>301</width>
-      <height>50</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Umpush</family>
-      <pointsize>11</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>w/x key: increase/decrease linear velocity
-a/d key: increase/decrease angular velocity
-space key, s key: force stop</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox_2">
    <property name="geometry">
     <rect>
-     <x>400</x>
-     <y>30</y>
-     <width>411</width>
+     <x>30</x>
+     <y>120</y>
+     <width>361</width>
      <height>261</height>
     </rect>
    </property>
@@ -542,47 +519,21 @@ space key, s key: force stop</string>
    <property name="title">
     <string>Action commands</string>
    </property>
-   <widget class="QLCDNumber" name="remain_lcd_number">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>90</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QWidget" name="gridLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>100</y>
-      <width>171</width>
+      <x>20</x>
+      <y>90</y>
+      <width>111</width>
       <height>96</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="line_edit_time"/>
+     </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="line_edit_vel_x"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_action_vel_x">
-       <property name="font">
-        <font>
-         <family>Umpush</family>
-         <pointsize>12</pointsize>
-         <weight>75</weight>
-         <italic>true</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>vel_x</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_action_time">
@@ -603,16 +554,32 @@ space key, s key: force stop</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="line_edit_time"/>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_action_vel_x">
+       <property name="font">
+        <font>
+         <family>Umpush</family>
+         <pointsize>12</pointsize>
+         <weight>75</weight>
+         <italic>true</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>vel_x</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
     </layout>
    </widget>
    <widget class="QPushButton" name="push_button_action_start">
     <property name="geometry">
      <rect>
-      <x>100</x>
-      <y>210</y>
+      <x>20</x>
+      <y>180</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -635,8 +602,8 @@ space key, s key: force stop</string>
    <widget class="QLabel" name="label_action_movetime">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>70</y>
+      <x>20</x>
+      <y>50</y>
       <width>131</width>
       <height>17</height>
      </rect>
@@ -656,35 +623,11 @@ space key, s key: force stop</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="label_action_remain">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>60</y>
-      <width>151</width>
-      <height>17</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Umpush</family>
-      <pointsize>13</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>distance remains</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="push_button_action_cancel">
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>210</y>
+      <x>20</x>
+      <y>220</y>
       <width>111</width>
       <height>31</height>
      </rect>
@@ -704,91 +647,109 @@ space key, s key: force stop</string>
      <string>Cancel Action</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_action_total_move">
+   <widget class="QWidget" name="gridLayoutWidget_4">
     <property name="geometry">
      <rect>
-      <x>230</x>
-      <y>130</y>
-      <width>151</width>
-      <height>17</height>
+      <x>150</x>
+      <y>80</y>
+      <width>206</width>
+      <height>131</height>
      </rect>
     </property>
-    <property name="font">
-     <font>
-      <family>Umpush</family>
-      <pointsize>13</pointsize>
-      <weight>75</weight>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>total movement</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QLCDNumber" name="movement_lcd_number">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>160</y>
-      <width>101</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="burger_label_x_2">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>100</y>
-      <width>30</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Umpush</family>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>m</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="burger_label_x_3">
-    <property name="geometry">
-     <rect>
-      <x>390</x>
-      <y>170</y>
-      <width>30</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Umpush</family>
-      <pointsize>12</pointsize>
-      <weight>75</weight>
-      <italic>false</italic>
-      <bold>true</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>m</string>
-    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_action_total_move_2">
+       <property name="font">
+        <font>
+         <family>Umpush</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>burger</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_action_remain_2">
+       <property name="font">
+        <font>
+         <family>Umpush</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>waffle</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="label_action_total_move">
+       <property name="font">
+        <font>
+         <family>Umpush</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>moved</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="label_action_remain">
+       <property name="font">
+        <font>
+         <family>Umpush</family>
+         <pointsize>13</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>remains</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QLCDNumber" name="burger_movement_lcd_number"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLCDNumber" name="burger_remain_lcd_number"/>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLCDNumber" name="waffle_movement_lcd_number"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLCDNumber" name="waffle_remain_lcd_number"/>
+     </item>
+    </layout>
    </widget>
   </widget>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>311</width>
+     <x>30</x>
+     <y>10</y>
+     <width>251</width>
      <height>101</height>
     </rect>
    </property>
@@ -801,12 +762,12 @@ space key, s key: force stop</string>
     </font>
    </property>
    <property name="title">
-    <string>Choose Robots to give commands</string>
+    <string>Choose Robots</string>
    </property>
    <widget class="QCheckBox" name="check_box_waffle">
     <property name="geometry">
      <rect>
-      <x>190</x>
+      <x>130</x>
       <y>60</y>
       <width>92</width>
       <height>23</height>
@@ -828,7 +789,7 @@ space key, s key: force stop</string>
    <widget class="QCheckBox" name="check_box_burger">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>20</x>
       <y>60</y>
       <width>92</width>
       <height>23</height>
@@ -851,10 +812,10 @@ space key, s key: force stop</string>
   <widget class="QPushButton" name="push_button_alarm">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>150</y>
-     <width>311</width>
-     <height>61</height>
+     <x>290</x>
+     <y>40</y>
+     <width>101</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -867,6 +828,292 @@ space key, s key: force stop</string>
    </property>
    <property name="text">
     <string>Alarm</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="push_button_e_stop">
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>90</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Umpush</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>E-STOP</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_hands_control">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>430</y>
+     <width>631</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="title">
+    <string/>
+   </property>
+   <widget class="QWidget" name="gridLayoutWidget_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>70</y>
+      <width>241</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Handedness</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLCDNumber" name="left_hand_y"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>pos_x</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>fingers_up</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLCDNumber" name="left_hand_num_of_fingers_up"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>pos_y</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLCDNumber" name="left_hand_x"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_13">
+       <property name="text">
+        <string>Command</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="left_hand_handedness">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="left_hand_command">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="gridLayoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>70</y>
+      <width>241</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_5">
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_19">
+       <property name="text">
+        <string>Handedness</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLCDNumber" name="right_hand_y"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_20">
+       <property name="text">
+        <string>pos_x</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_21">
+       <property name="text">
+        <string>fingers_up</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLCDNumber" name="right_hand_num_of_fingers_up"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_22">
+       <property name="text">
+        <string>pos_y</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLCDNumber" name="right_hand_x"/>
+     </item>
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_23">
+       <property name="text">
+        <string>Command</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLabel" name="right_hand_handedness">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLabel" name="right_hand_command">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="burger_label_3">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>40</y>
+      <width>67</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>burger</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="waffle_label_3">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>40</y>
+      <width>67</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>waffle</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QPushButton" name="push_button_hands_control">
+   <property name="geometry">
+    <rect>
+     <x>420</x>
+     <y>400</y>
+     <width>261</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Umpush</family>
+     <pointsize>16</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Activate Hands Control</string>
    </property>
   </widget>
  </widget>
