@@ -24,5 +24,8 @@ or
 rm ~/.config/ros.org/rqt_gui.ini  
 
 ### using with rqt
-You can find plugin after run  
-rqt>Plugins>Turtlebot3>Turtlebots Are Incredible
+![K-003](https://github.com/sonzweil/turtlebots_are_incredible/assets/15362456/3746e5bb-a2ca-4e3c-a6ce-39ede1d2dad5)
+
+### rqt_graph
+![스크린샷, 2023-04-30 16-50-59](https://github.com/sonzweil/turtlebots_are_incredible/assets/15362456/b978ff0b-e294-435c-a59c-dd0cba510488)
+![스크린샷, 2023-05-24 21-16-27](https://github.com/sonzweil/turtlebots_are_incredible/assets/15362456/de511856-d3dd-4c24-aba2-1ddb99f7390e)
