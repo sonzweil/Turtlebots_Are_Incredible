@@ -170,11 +170,11 @@ class IncredibleWidget(QWidget):
         self.set_stop()
         self.make_alarm()
     def activate_hands_control(self):
+        self.hands_control_mode = not self.hands_control_mode
         if self.hands_control_mode:
             self.push_button_hands_control.setText("Deactivate Hands Control")
         else:
             self.push_button_hands_control.setText("Activate Hands Control")
-        self.hands_control_mode = not self.hands_control_mode
 
 
     # cmd subscriber calls
